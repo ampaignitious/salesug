@@ -1,37 +1,44 @@
-{% extends "tasks/base.html"%} 
-{% block content%}
+{% extends "tasks/base.html"%} {% load crispy_forms_tags %} {% block content%}
 <div class="row">
-<h5 class="text-secondary">All available: {{total}} tasks</h5>
-<!--creating task creating form-->
-<!-- ###################STARTING FROM HERE############################## -->
-<!-- <form action="" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form> -->
-<!---->
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Task name</th>
-      <th scope="col">Task Description</th>
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-{% for data in alltasks %}
-    <tr>
-      <td>{{data.name}}</td>
-      <td>{{data.description}}</td>
-      {% if data.task_status == "Closed"%}
-      <td><p class="text-primary">{{data.task_status}}</p></td>
-      {% else%}
-      <td><p class="text-secondary">{{data.task_status}}</p></td>
-      {% endif%}
-    </tr>
-{% endfor %}
-  </tbody>
-</table>
+  <div class="card col-8">
+    <h6 class="text-secondary p-2">available tasks</h6>
+    <hr>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Task name</th>
+          <th scope="col">Task Description</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in alltasks %}
+        <tr>
+          <td>{{data.name}}</td>
+          <td>{{data.description}}</td>
+          {% if data.task_status == "Closed"%}
+          <td><p class="text-primary">{{data.task_status}}</p></td>
+          {% else%}
+          <td><p class="text-secondary">{{data.task_status}}</p></td>
+          {% endif%}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
+  <div class="col-4">
+    <!--creating task creating form-->
+    <div class="card m-1 p-2">
+      <h5 class="text-secondary">Task creation form</h5>
+      <hr>
+      <form action="" method="post">
+        {% csrf_token %} {{ form|crispy }}
+        <br />
+        <input type="submit" class="btn btn-primary" value="Create task" />
+      </form>
     </div>
+    <!---->
+  </div>
+</div>
 {% endblock %}
