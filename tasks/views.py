@@ -3,10 +3,16 @@ from . models import Task
 # Create your views here.
 def home(request):
     alltasks = Task.objects.all()
-    context={"alltasks":alltasks}
-    print(context)
+    total =Task.objects.count()
+    context={"alltasks":alltasks,
+             "total":total             
+             }
     return render(request, 'tasks/home.html', context)
 
 
-def detailpage(request, pk):
-    return render(request, 'tasks/detail.html')
+def detailpage(request, taskID):
+    taskDetails= Task.objects.get(pk=taskID)
+    context={
+        "taskDetails":taskDetails
+    }
+    return render(request, 'tasks/detail.html', context)
