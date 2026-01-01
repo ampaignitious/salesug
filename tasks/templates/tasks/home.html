@@ -1,21 +1,31 @@
-{% extends "tasks/base.html"%} 
-{% block content%}
+{% extends "tasks/base.html"%} {% block content%}
+<div class="row">
   <div class="row">
-<h4 class="text-secondary">Total tasks: {{total}}</h4>
-{% for data in alltasks %}
-    <div class="col-md-3 p-2">
-      <div class="card">
-        <h5 class="card-header">{{data.name}}</h5>
-        <div class="card-body">
-          <h6 class="card-title text-secondary">Task Status: {{data.task_status}}</h6>
-          <p class="card-text">
-            {{ data.description }}
-          </p>
-          <a href="{% url 'detailpage' data.id%}" class="btn btn-secondary">Click to see more details</a>
-        </div>
+    <h4 class="text-secondary">Total tasks: {{total}}</h4>
+  </div>
+  {% if messages %}
+
+  <div class="alert alert-primary" role="alert">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+  {% endif %} {% for data in alltasks %}
+  <div class="col-md-3 p-2">
+    <div class="card">
+      <h5 class="card-header">{{data.name}}</h5>
+      <div class="card-body">
+        <h6 class="card-title text-secondary">
+          Task Status: {{data.task_status}}
+        </h6>
+        <p class="card-text">{{ data.description }}</p>
+        <a href="{% url 'detailpage' data.id%}" class="btn btn-secondary"
+          >Click to see more details</a
+        >
       </div>
     </div>
+  </div>
 
-{% endfor %}
-    </div>
+  {% endfor %}
+</div>
 {% endblock %}

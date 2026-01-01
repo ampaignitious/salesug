@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from . models import Task
 from . forms import taskcreateform
 # Create your views here.
@@ -47,3 +48,17 @@ def createtaskform(request):
                 "form":form          
                 }
         return render(request, 'tasks/taskpage.html', context)
+    
+def deletetask(request, taskID):
+    taskDetails= Task.objects.get(pk=taskID)
+    taskDetails.delete()
+
+    messages.success(request, f'{taskDetails.name} has been deleted successfully.')
+    alltasks = Task.objects.all()
+    form  = taskcreateform()
+    total =Task.objects.count()
+    context={"alltasks":alltasks,
+                "total":total,
+                "form":form,         
+                }
+    return render(request, 'tasks/home.html', context)

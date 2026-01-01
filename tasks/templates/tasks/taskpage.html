@@ -1,8 +1,8 @@
 {% extends "tasks/base.html"%} {% load crispy_forms_tags %} {% block content%}
 <div class="row">
   <div class="card col-8">
-    <h6 class="text-secondary p-2">available tasks</h6>
-    <hr>
+    <h5 class="text-secondary p-2">Available tasks</h5>
+    <hr />
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -31,7 +31,7 @@
     <!--creating task creating form-->
     <div class="card m-1 p-2">
       <h5 class="text-secondary">Task creation form</h5>
-      <hr>
+      <hr />
       <form action="" method="post">
         {% csrf_token %} {{ form|crispy }}
         <br />
