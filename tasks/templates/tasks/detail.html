@@ -1,21 +1,51 @@
-{% extends "tasks/base.html"%} 
-{% block content%}
+{% extends "tasks/base.html"%} {% load crispy_forms_tags %} {% block content%}
+{% if editform == True%}
+<!-- edit task display section  -->
 <div class="row justify-content-center">
-        <div class="col-md-3 p-2">
-      <div class="card">
-        <h5 class="card-header">{{taskDetails.name}}</h5>
-        <div class="card-body">
-          <h6 class="card-title text-secondary">Task Status: {{taskDetails.task_status}}</h6>
-          <p class="card-text">
-            {{ taskDetails.description }}
-          </p>
-      <div class="d-flex justify-content-between">
-        <a href="#" class="btn btn-warning">Edit</a>
-        <a href="{% url 'deletetask' taskDetails.id %}" class="btn btn-danger">Delete</a>
-      </div>
+  <div class="col-3"></div>
+  <div class="col-6">
+    <!--creating task creating form-->
+    <div class="card m-1 p-2">
+      <h5 class="text-secondary">Task editing form</h5>
+      <hr />
+      <form action="" method="post">
+        {% csrf_token %} {{ form|crispy }}
+        <br />
+        <div class="d-flex justify-content-between">
+          <a
+            href="{% url 'edittask' taskDetails.id%}"
+            class="btn btn-secondary"
+          >
+            Edit tasks</a
+          >
+          <a href="{% url 'homepage'%}" class="btn btn-danger">Cancel</a>
+        </div>
+      </form>
+    </div>
+    <!---->
+  </div>
+  <div class="col-3"></div>
+</div>
+{% else%}
+<div class="row justify-content-center">
+  <div class="col-md-3 p-2">
+    <div class="card">
+      <h5 class="card-header">{{taskDetails.name}}</h5>
+      <div class="card-body">
+        <h6 class="card-title text-secondary">
+          Task Status: {{taskDetails.task_status}}
+        </h6>
+        <p class="card-text">{{ taskDetails.description }}</p>
+        <div class="d-flex justify-content-between">
+          <a href="{% url 'edittask' taskDetails.id%}" class="btn btn-secondary"
+            >Edit</a
+          >
+          <a href="{% url 'deletetask' taskDetails.id %}" class="btn btn-danger"
+            >Delete</a
+          >
         </div>
       </div>
     </div>
+  </div>
 </div>
-
-{% endblock %}
+{% endif %} {% endblock %}

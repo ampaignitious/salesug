@@ -68,3 +68,24 @@ def deletetask(request, taskID):
     return render(request, 'tasks/home.html', context)
 
 #edit a task
+def edittask(request, taskID):
+    taskDetails= Task.objects.get(pk=taskID)
+    if request =="POST":
+        form =taskcreateform(request.POST,instance=taskDetails)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Task edited successfully.')
+            alltasks = Task.objects.all()
+            total =Task.objects.count()
+            alldatacontext={"alltasks":alltasks,
+                            "total":total             
+                            }
+        return render(request, 'tasks/home.html', alldatacontext)
+    else:
+        form =taskcreateform(instance=taskDetails)
+        context={
+                "taskDetails":taskDetails,
+                "editform":True,
+                "form":form
+        }
+    return render(request, 'tasks/detail.html', context)
