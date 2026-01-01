@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.contrib import messages
 from . models import Task
 from . forms import taskcreateform
-# Create your views here.
 
+
+#view all tasks
 def home(request):
     alltasks = Task.objects.all()
     total =Task.objects.count()
@@ -13,6 +14,7 @@ def home(request):
     return render(request, 'tasks/home.html', alldatacontext)
 
 
+#View a specific task
 def detailpage(request, taskID):
     taskDetails= Task.objects.get(pk=taskID)
     context={
@@ -20,6 +22,7 @@ def detailpage(request, taskID):
     }
     return render(request, 'tasks/detail.html', context)
 
+#create a task 
 def createtaskform(request):
     if request.method =="POST":
         form =taskcreateform(request.POST)
@@ -48,7 +51,8 @@ def createtaskform(request):
                 "form":form          
                 }
         return render(request, 'tasks/taskpage.html', context)
-    
+
+#delete a task 
 def deletetask(request, taskID):
     taskDetails= Task.objects.get(pk=taskID)
     taskDetails.delete()
@@ -62,3 +66,5 @@ def deletetask(request, taskID):
                 "form":form,         
                 }
     return render(request, 'tasks/home.html', context)
+
+#edit a task
