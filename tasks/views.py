@@ -16,3 +16,11 @@ def detailpage(request, taskID):
         "taskDetails":taskDetails
     }
     return render(request, 'tasks/detail.html', context)
+
+def createtaskform(request):
+    alltasks = Task.objects.all()
+    total =Task.objects.count()
+    context={"alltasks":alltasks,
+             "total":total             
+             }
+    return render(request, 'tasks/taskpage.html', context)
