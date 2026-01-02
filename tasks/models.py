@@ -6,7 +6,7 @@ class Task(models.Model):
         ('Pending','Pending'),
         ('Closed','Closed')
     ]
-    name = models.CharField(max_length=10)
+    name = models.CharField(max_length=50)
     description=models.TextField(max_length=300)
     created_at =models.DateTimeField(auto_now_add=True)
     task_status=models.CharField(

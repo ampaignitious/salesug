@@ -69,10 +69,11 @@ def deletetask(request, taskID):
 
 #edit a task
 def edittask(request, taskID):
-    taskDetails= Task.objects.get(pk=taskID)
-    if request =="POST":
-        form =taskcreateform(request.POST,instance=taskDetails)
+    if request.method =="POST":
+        taskDetails= Task.objects.get(pk=taskID)
+        form =taskcreateform(request.POST, instance=taskDetails)
         if form.is_valid():
+            print(form)
             form.save()
             messages.success(request, f'Task edited successfully.')
             alltasks = Task.objects.all()
@@ -80,12 +81,13 @@ def edittask(request, taskID):
             alldatacontext={"alltasks":alltasks,
                             "total":total             
                             }
-        return render(request, 'tasks/home.html', alldatacontext)
+            return render(request, 'tasks/home.html', alldatacontext)
     else:
+        taskDetails= Task.objects.get(pk=taskID)
         form =taskcreateform(instance=taskDetails)
         context={
                 "taskDetails":taskDetails,
                 "editform":True,
                 "form":form
         }
-    return render(request, 'tasks/detail.html', context)
+        return render(request, 'tasks/detail.html', context)

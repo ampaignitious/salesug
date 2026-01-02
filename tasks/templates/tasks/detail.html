@@ -8,17 +8,13 @@
     <div class="card m-1 p-2">
       <h5 class="text-secondary">Task editing form</h5>
       <hr />
-      <form action="" method="post">
+      <form action="" method="POST">
         {% csrf_token %} {{ form|crispy }}
         <br />
         <div class="d-flex justify-content-between">
-          <a
-            href="{% url 'edittask' taskDetails.id%}"
-            class="btn btn-secondary"
-          >
-            Edit tasks</a
-          >
-          <a href="{% url 'homepage'%}" class="btn btn-danger">Cancel</a>
+      <button type="submit" class="btn btn-secondary">Edit Task</button>
+
+      <a href="{% url 'homepage' %}" class="btn btn-danger">Cancel</a>
         </div>
       </form>
     </div>
