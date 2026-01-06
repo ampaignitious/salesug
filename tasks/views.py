@@ -75,7 +75,7 @@ def edittask(request, taskID):
         if form.is_valid():
             print(form)
             form.save()
-            messages.success(request, f'Task edited successfully.')
+            messages.success(request, f'Task has been edited successfully.')
             alltasks = Task.objects.all()
             total =Task.objects.count()
             alldatacontext={"alltasks":alltasks,
